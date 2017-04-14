@@ -178,5 +178,6 @@ public class Point {
     private double rad2deg(double rad) {
         return (rad * 180.0 / Math.PI);
     }
+	
 
 } // end of class Point

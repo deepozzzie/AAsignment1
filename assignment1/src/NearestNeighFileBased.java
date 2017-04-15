@@ -34,6 +34,7 @@ public class NearestNeighFileBased {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        long endTime, duration, startTime; 
         // read command line arguments
         if (args.length != 4) {
             System.err.println("Incorrect number of arguments.");
@@ -103,9 +104,15 @@ public class NearestNeighFileBased {
                         k = scanner.nextInt();
                         point = new Point("searchTerm", cat, lat, lon);
                         List<Point> searchResult = agent.search(point, k);
+                        writer.println("Searching");
+                        startTime = System.nanoTime();
                         for (Point writePoint : searchResult) {
+                        	
                             writer.println(writePoint.toString());
                         }
+                        endTime = System.nanoTime();
+                        duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                        System.out.println("Search took: " + duration + " nano seconds" );
                         break;
                     // add
                     case "A":
@@ -114,9 +121,17 @@ public class NearestNeighFileBased {
                         lat = scanner.nextDouble();
                         lon = scanner.nextDouble();
                         point = new Point(id, cat, lat, lon);
+                        writer.println("Adding.");
+                        startTime = System.nanoTime();
                         if (!agent.addPoint(point)) {
                             writer.println("Add point failed.");
                         }
+                        else{
+                        	writer.println("Add point Succesful.");
+                        }
+                        endTime = System.nanoTime();
+                        duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                        System.out.println("Adding took: " + duration + " Nanoseconds" );
                         break;
                     // delete
                     case "D":
@@ -125,9 +140,16 @@ public class NearestNeighFileBased {
                         lat = scanner.nextDouble();
                         lon = scanner.nextDouble();
                         point = new Point(id, cat, lat, lon);
+                        startTime = System.nanoTime();
                         if (!agent.deletePoint(point)) {
                             writer.println("Delete point failed.");
                         }
+                        else{
+                        	writer.println("Delete point successful");
+                        }
+                        endTime = System.nanoTime();
+                        duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                        System.out.println("Checking took: " + duration + " Nano Seconds" );
                         break;
                     // check
                     case "C":
@@ -136,7 +158,11 @@ public class NearestNeighFileBased {
                         lat = scanner.nextDouble();
                         lon = scanner.nextDouble();
                         point = new Point(id, cat, lat, lon);
+                        startTime = System.nanoTime();
                         writer.println(agent.isPointIn(point));
+                        endTime = System.nanoTime();
+                        duration = (endTime - startTime);  //divide by 1000000 to get milliseconds.
+                        System.out.println("Checking took: " + duration + " NanoSeconds" );
                         break;
                     default:
                         System.err.println("Unknown command.");

@@ -12,7 +12,6 @@ import java.util.List;
  */
 
 public class NaiveNN implements NearestNeigh{
-	@SuppressWarnings("unused")
 	List<Point> neigh = null;
 
 	@Override
@@ -43,22 +42,23 @@ public class NaiveNN implements NearestNeigh{
 		 * and then adds them all to a new list called points details. Which will then take only first k elements from
 		 * and add it to the neighbours list. Which will then be returned as the nearest neighbours. 
 		 */
-		int z = 0;
 		System.out.println(searchTerm.cat);
 		while(pointIterator.hasNext()){
-			z = z+1;
-			if(pointIterator.next().cat == searchTerm.cat){
-				if(z == 1100){
-					System.out.println('H');
-				}
-				distance = neigh.get(z).distTo(searchTerm);
-				if(pointIterator.hasNext()){
-				id = pointIterator.next().id;
-				
-				pointDetails p = new pointDetails(id,distance, pointIterator.next());
-				pointsDetail.add(p);
-				}
-							}
+
+			Point p = pointIterator.next();
+
+			if(p.cat == searchTerm.cat){
+
+				distance = p.distTo(searchTerm);
+
+				id = p.id;
+
+
+				pointDetails l = new pointDetails(id,distance, p);
+				pointsDetail.add(l);
+
+
+			}
 
 		}
 		/*sort the points detail list */
@@ -114,40 +114,40 @@ public class NaiveNN implements NearestNeigh{
 		return false;
 	}
 
-		@Override
-		public boolean isPointIn(Point point) {
+	@Override
+	public boolean isPointIn(Point point) {
 
-			// checks if point is already in the list returns true if it is, returns false if it is not. 
-			if(point == null || neigh.size() == 0){
-				return false;
-			}
-			Iterator<Point> pointIterator = neigh.iterator();
-			while(pointIterator.hasNext())
-			{
-				if(pointIterator.next().equals(point)){
-					return true;
-				}
-			}
+		// checks if point is already in the list returns true if it is, returns false if it is not. 
+		if(point == null || neigh.size() == 0){
 			return false;
 		}
-		/* helper functions 
-		 * the comparator helps find the nearest neighbour based upon distance from any given point.
-		 * takes two points, and returns 1 if the distance between point 1 is less than point 2, returns -1 if not, if equal 
-		 * returns 0. This is an overloaded compatator.*/
-		class distanceComparator implements Comparator<pointDetails> {
-			public int compare(pointDetails p1, pointDetails p2) {
-				double distance1 = p1.distance;
-				double distance2 = p2.distance;
-
-				if (distance1 > distance2) {
-					return 1;
-				} else if (distance1 < distance2) {
-					return -1;
-				} else {
-					return 0;
-				}
+		Iterator<Point> pointIterator = neigh.iterator();
+		while(pointIterator.hasNext())
+		{
+			if(pointIterator.next().equals(point)){
+				return true;
 			}
 		}
-
-
+		return false;
 	}
+	/* helper functions 
+	 * the comparator helps find the nearest neighbour based upon distance from any given point.
+	 * takes two points, and returns 1 if the distance between point 1 is less than point 2, returns -1 if not, if equal 
+	 * returns 0. This is an overloaded compatator.*/
+	class distanceComparator implements Comparator<pointDetails> {
+		public int compare(pointDetails p1, pointDetails p2) {
+			double distance1 = p1.distance;
+			double distance2 = p2.distance;
+
+			if (distance1 > distance2) {
+				return 1;
+			} else if (distance1 < distance2) {
+				return -1;
+			} else {
+				return 0;
+			}
+		}
+	}
+
+
+}

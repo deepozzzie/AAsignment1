@@ -1,13 +1,8 @@
 package nearestNeigh;
-
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Deque;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -69,7 +64,7 @@ public class KDTreeNN<T> implements NearestNeigh{
 	@Override
 	public List<Point> search(Point searchTerm, int k) {
 		if(searchTerm == null || root == null){
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 		// Map used for results
 		TreeSet<Node> results = new TreeSet<Node>(new EuclideanComparator(searchTerm));

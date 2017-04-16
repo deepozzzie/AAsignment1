@@ -1,4 +1,3 @@
-
 import nearestNeigh.Category;
 import nearestNeigh.Point;
 import nearestNeigh.KDTreeNN;

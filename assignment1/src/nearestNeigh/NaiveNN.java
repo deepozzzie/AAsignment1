@@ -33,7 +33,7 @@ public class NaiveNN implements NearestNeigh{
     	Neighbours contain all elements of a specific category from the list Points. 
 
 		 */
-		ArrayList<Point>Neighbours = new ArrayList<Point>(); 
+		ArrayList<Point>Neighbours = new ArrayList<Point>(k); 
 		ArrayList<pointDetails>pointsDetail = new ArrayList<pointDetails>();
 		double distance;
 		String id;
@@ -43,14 +43,22 @@ public class NaiveNN implements NearestNeigh{
 		 * and then adds them all to a new list called points details. Which will then take only first k elements from
 		 * and add it to the neighbours list. Which will then be returned as the nearest neighbours. 
 		 */
+		int z = 0;
+		System.out.println(searchTerm.cat);
 		while(pointIterator.hasNext()){
-
+			z = z+1;
 			if(pointIterator.next().cat == searchTerm.cat){
-				distance = pointIterator.next().distTo(searchTerm);
+				if(z == 1100){
+					System.out.println('H');
+				}
+				distance = neigh.get(z).distTo(searchTerm);
+				if(pointIterator.hasNext()){
 				id = pointIterator.next().id;
+				
 				pointDetails p = new pointDetails(id,distance, pointIterator.next());
 				pointsDetail.add(p);
-			}
+				}
+							}
 
 		}
 		/*sort the points detail list */
